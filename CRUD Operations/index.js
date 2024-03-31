@@ -13,8 +13,6 @@ app.get("/", (req, res) => {
   res.send("Hello from Node API Server Updated");
 });
 
-
-
 // app.use("/api/products", productRoute);
 
 mogoose.connect("mongodb+srv://PoornashriAPI:1yR6TvUvpbAfyCqN@cluster0.gk6ac7u.mongodb.net/Node-API?retryWrites=true&w=majority")
