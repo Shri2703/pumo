@@ -14,7 +14,7 @@ app.get("/", (req, res) => {
 });
 // app.use("/api/products", productRoute);
 
-mogoose.connect("mongodb+srv://PoornashriAPI:1yR6TvUvpbAfyCqN@cluster0.gk6ac7u.mongodb.net/Node-API?retryWrites=true&w=majority")
+mongoose.connect("mongodb+srv://PoornashriAPI:1yR6TvUvpbAfyCqN@cluster0.gk6ac7u.mongodb.net/Node-API?retryWrites=true&w=majority")
 .then(() => {
     console.log("Connected to database!");
     app.listen(3000, () => {
