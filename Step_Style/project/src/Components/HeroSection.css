@@ -1,0 +1,40 @@
+.carousel-item img {
+    height: 90vh;
+    object-fit: cover;
+    width: 100%;
+  }
+  
+ .colurtext{
+    color:blue;
+ }
+  
+ .marquee {
+   overflow: hidden;
+   white-space: nowrap;
+   box-sizing: border-box;
+   position: relative;
+ }
+ 
+ .marquee-content {
+   display: inline-block;
+   animation: marquee 20s linear infinite;
+ }
+ 
+ .brand-name {
+   display: inline-block;
+   font-size: 1.5rem; /* Adjust font size as needed */
+   font-weight: bold;
+ }
+ 
+ @keyframes marquee {
+   0% { transform: translateX(100%); }
+   100% { transform: translateX(-100%); }
+ }
+ 
+
+ 
+ 
+ .custom-shadow {
+   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+ }
+ 

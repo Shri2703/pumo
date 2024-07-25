@@ -1,78 +1,101 @@
-import React, { useState } from 'react';
-import axios from 'axios';
-import { useNavigate } from 'react-router-dom';
+import React, { useState } from 'react'
+import axios from 'axios'
+import { useNavigate } from 'react-router-dom'
 
 function CreateUser() {
-    const [name, setName] = useState("");
-    const [email, setEmail] = useState("");
-    const [age, setAge] = useState("");
-    const navigate = useNavigate();
-    const [error, setError] = useState({});
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    
-    const handleSubmit = (event) => {
-        event.preventDefault();
-        let err = {};
+  const [name, setName] = useState('')
+  const [email, setEmail] = useState('')
+  const [age, setAge] = useState('')
+  const navigate = useNavigate()
+  const [error, setError] = useState({})
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
 
-        if (!name.trim()) {
-            err.name = "Enter your name";
-        }
+  const handleSubmit = (event) => {
+    event.preventDefault()
+    let err = {}
 
-        if (!email.trim()) {
-            err.email = "Enter your email";
-        } else if (!emailRegex.test(email)) {
-            err.email = "Enter a valid email";
-        }
+    if (!name.trim()) {
+      err.name = 'Enter your name'
+    }
 
-        if (!age.trim()) {
-            err.age = "Enter your age";
-        }
+    if (!email.trim()) {
+      err.email = 'Enter your email'
+    } else if (!emailRegex.test(email)) {
+      err.email = 'Enter a valid email'
+    }
 
-        if (Object.keys(err).length === 0) {
-            alert("Login successfully");
-            axios.post("http://localhost:3001/createUser", { name, email, age })
-                .then(result => {
-                    console.log(result);
-                    navigate('/');
-                })
-                .catch(err => console.log(err));
-        }
+    if (!age.trim()) {
+      err.age = 'Enter your age'
+    }
 
-        setError(err);
-    };
+    if (Object.keys(err).length === 0) {
+      axios
+        .post('http://localhost:3001/createUser', { name, email, age })
+        .then((result) => {
+          console.log(result)
+          setName('')
+          setEmail('')
+          setAge('')
+          navigate('/')
+        })
+        .catch((err) => {
+          console.log(err)
+          if (err.response && err.response.data && err.response.data.message) {
+            setError({ form: err.response.data.message })
+          }
+        })
+    }
 
-    return (
-        <div className='d-flex vh-100 bg-dark justify-content-center align-items-center'>
-            <div className="w-50 bg-white rounded p-3">
-                <form onSubmit={handleSubmit}>
-                    <h2>Add User</h2>
-                    <div className="mb-2">
-                        <label htmlFor="">Name</label>
-                        <input type="text" placeholder='Enter Name' className='form-control' 
-                        onChange={(e) =>setName(e.target.value)}/>
-                        <p style={{color:"red"}}>{error.name}</p>
-                    </div>
-                    <div className="mb-2">
-                        <label htmlFor="">Email</label>
-                        <input type="text" placeholder='Enter Email' className='form-control' 
-                        onChange={(e) =>setEmail(e.target.value)}/>
-                        <p style={{color:"red"}}>{error.email}</p>
-                    </div>
-                    <div className="mb-2">
-                        <label htmlFor="">Age</label>
-                        <input type="number" placeholder='Enter Age' className='form-control' 
-                        onChange={(e) =>setAge(e.target.value)}/>
-                        <p style={{color:"red"}}>{error.age}</p>
-                    </div>
-                    <button className='btn btn-success'>Submit</button>
-                </form>
-            </div>
-        </div>
-    );
+    setError(err)
+  }
+
+  return (
+    <div className='d-flex vh-100 bg-dark justify-content-center align-items-center'>
+      <div className='w-50 bg-white rounded p-3'>
+        <form onSubmit={handleSubmit}>
+          <h2>Add User</h2>
+          {error.form && <p style={{ color: 'red' }}>{error.form}</p>}
+          <div className='mb-2'>
+            <label htmlFor=''>Name</label>
+            <input
+              type='text'
+              placeholder='Enter Name'
+              className='form-control'
+              value={name}
+              onChange={(e) => setName(e.target.value)}
+            />
+            <p style={{ color: 'red' }}>{error.name}</p>
+          </div>
+          <div className='mb-2'>
+            <label htmlFor=''>Email</label>
+            <input
+              type='text'
+              placeholder='Enter Email'
+              className='form-control'
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+            />
+            <p style={{ color: 'red' }}>{error.email}</p>
+          </div>
+          <div className='mb-2'>
+            <label htmlFor=''>Age</label>
+            <input
+              type='number'
+              placeholder='Enter Age'
+              className='form-control'
+              value={age}
+              onChange={(e) => setAge(e.target.value)}
+            />
+            <p style={{ color: 'red' }}>{error.age}</p>
+          </div>
+          <button className='btn btn-success'>Submit</button>
+        </form>
+      </div>
+    </div>
+  )
 }
 
 export default CreateUser;
-
 
 // import React, {  useState } from 'react';
 // import axios from 'axios'
@@ -86,7 +109,7 @@ export default CreateUser;
 //     const [error,setError]=useState({})
 //     // const [emailreg,setEmailreg]=useState("/^[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?$/")
 //     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    
+
 //     const Submit =(event) =>{
 //         event.preventDefault()
 //         let err={}
@@ -120,20 +143,20 @@ export default CreateUser;
 //                     <h2>Add User</h2>
 //                     <div className="mb-2">
 //                         <label htmlFor="">Name</label>
-//                         <input type="text" placeholder='Enter Name' className='form-control' 
+//                         <input type="text" placeholder='Enter Name' className='form-control'
 //                         onChange={(e) =>setName(e.target.value)}/>
 //                         <p style={{color:"red"}}>{error.name}</p>
 //                     </div>
 //                     <div className="mb-2">
 //                         <label htmlFor="">Email</label>
-//                         <input type="text" placeholder='Enter Email' className='form-control' 
+//                         <input type="text" placeholder='Enter Email' className='form-control'
 //                         onChange={(e) =>setEmail(e.target.value)}/>
 //                         <p style={{color:"red"}}>{error.email}</p>
 //                         <p style={{color:"red"}}>{error.emailreg}</p>
 //                     </div>
 //                     <div className="mb-2">
 //                         <label htmlFor="">Age</label>
-//                         <input type="number" placeholder='Enter Age' className='form-control' 
+//                         <input type="number" placeholder='Enter Age' className='form-control'
 //                         onChange={(e) =>setAge(e.target.value)}/>
 //                         <p style={{color:"red"}}>{error.age}</p>
 //                     </div>
